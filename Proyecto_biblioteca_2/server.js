@@ -67,6 +67,74 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
+// Ruta para registrar un nuevo alumno
+app.post('/alumnos', async (req, res) => {
+    const { codigo, nombre, carrera, correo_electronico } = req.body;
+
+    if (!codigo || !nombre) {
+        return res.status(400).json({ success: false, message: "Código y nombre son requeridos" });
+    }
+
+    try {
+        const query = 'INSERT INTO alumno (codigo, nombre, carrera, correo_electronico) VALUES ($1, $2, $3, $4)';
+        await pool.query(query, [codigo, nombre, carrera, correo_electronico]);
+
+        res.json({ success: true, message: "Alumno registrado con éxito" });
+    } catch (err) {
+        console.error('Error al insertar alumno:', err);
+        res.status(500).json({ success: false, message: "Error al registrar alumno" });
+    }
+});
+
+
+// Ruta para consultar todos los alumnos
+app.get('/alumnos', async (req, res) => {
+    try {
+        const resultado = await pool.query('SELECT * FROM public.alumno ORDER BY codigo');
+        res.json({ success: true, alumnos: resultado.rows });
+    } catch (err) {
+        console.error('Error al consultar alumnos:', err);
+        res.status(500).json({ success: false, message: "Error al obtener alumnos" });
+    }
+});
+
+// Ruta para registrar un nuevo alumno
+app.post('/profesor', async (req, res) => {
+    const { codigoProfe, nombreProfe, carreraProfe, mailProfesor,contratacionFecha, antiguedadProfe} = req.body;
+
+    try {
+        const query = 'INSERT INTO profesor (codigo, nombre, carrera, correo_electronico, fecha_contratacion, antiguedad) VALUES ($1, $2, $3, $4, $5, $6)';
+        await pool.query(query, [codigoProfe, nombreProfe, carreraProfe, mailProfesor,contratacionFecha, antiguedadProfe]);
+
+        res.json({ success: true, message: "Profesor registrado con éxito" });
+    } catch (err) {
+        console.error('Error al insertar alumno:', err);
+        res.status(500).json({ success: false, message: "Error al registrar profesor" });
+    }
+});
+
+// Ruta para consultar todos los alumnos
+// Ruta para consultar todos los profesores
+app.get('/profesores', async (req, res) => {
+    try {
+        const resultado = await pool.query('SELECT * FROM profesor ORDER BY codigo');
+
+        // Convertir la fecha_contratacion a formato YYYY-MM-DD
+        const profesoresFormateados = resultado.rows.map(profesor => ({
+            ...profesor,
+            fecha_contratacion: profesor.fecha_contratacion.toISOString().split('T')[0]
+        }));
+
+        res.json({ success: true, profesores: profesoresFormateados });
+    } catch (err) {
+        console.error('Error al consultar profesores:', err);
+        res.status(500).json({ success: false, message: "Error al obtener profesores" });
+    }
+});
+
+
+
 app.listen(3000, () => {
     console.log('Servidor backend en http://127.0.0.1:3000');
 });

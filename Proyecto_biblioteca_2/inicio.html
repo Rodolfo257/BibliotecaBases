@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesInicio.css">
+    <title>Biblioteca</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <h1>Biblioteca 6</h1>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li class="dropdown">
+                    <a href="#">Alumnos</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="mostrarSeccion('altas-alumnos')">Altas</a>
+                        <a href="#" onclick="mostrarSeccion('consultas-alumnos')">Consultas</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Profesores</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="mostrarSeccion('altas-profesores')">Altas</a>
+                        <a href="#" onclick="mostrarSeccion('consultas-profesores')">Consultas</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Libros</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="mostrarSeccion('altas-libros')">Altas</a>
+                        <a href="#" onclick="mostrarSeccion('consultas-libros')">Consultas</a>
+                    </div>
+                </li>
+                <li id="bienvenidoUsuario"></li>
+                <li><button id="cerrarSesion">Cerrar Sesión</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <h2>Bienvenido a la Biblioteca 6</h2>
+        <p>Accede a miles de libros y recursos en línea de manera fácil y rápida.</p>
+    </section>
+
+    <!-- Sección de Catálogo -->
+    <section id="catalogo" class="section">
+        <h2>Catálogo de Libros</h2>
+        <div class="catalogo-cards">
+            <div class="card">
+                <img src="https://via.placeholder.com/150" alt="Libro 1">
+                <h3>Libro 1</h3>
+                <p>Descripción breve del libro 1.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/150" alt="Libro 2">
+                <h3>Libro 2</h3>
+                <p>Descripción breve del libro 2.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/150" alt="Libro 3">
+                <h3>Libro 3</h3>
+                <p>Descripción breve del libro 3.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secciones para los puntos requeridos (inicialmente ocultas) -->
+    
+    <!-- Sección de Altas de Alumnos (Punto 6) -->
+    <section id="altas-alumnos" class="section" style="display: none;">
+        <h2>Registro de Nuevo Alumno</h2>
+        <form id="form-alumno" class="formulario">
+            <div class="form-group">
+                <label for="codigo-alumno">Código:</label>
+                <input type="text" id="codigo-alumno" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre-alumno">Nombre:</label>
+                <input type="text" id="nombre-alumno" required>
+            </div>
+            <div class="form-group">
+                <label for="carrera-alumno">Carrera:</label>
+                <input type="text" id="carrera-alumno" required>
+            </div>
+            <div class="form-group">
+                <label for="email-alumno">Correo Electrónico:</label>
+                <input type="email" id="email-alumno" required>
+            </div>
+            <button type="submit" class="btn">Guardar</button>
+            <button type="button" class="btn-cancelar" onclick="mostrarSeccion('inicio')">Cancelar</button>
+        </form>
+    </section>
+
+    <!-- Sección de Consultas de Alumnos (Punto 7) -->
+    <section id="consultas-alumnos" class="section" style="display: none;">
+        <h2>Consulta de Alumnos</h2>
+        <div class="tabla-container">
+            <table id="tabla-alumnos">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Carrera</th>
+                        <th>Correo Electrónico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos se cargarán con JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <button class="btn-cancelar" onclick="mostrarSeccion('inicio')">Volver</button>
+    </section>
+
+    <!-- Sección de Altas de Profesores (Punto 8) -->
+    <section id="altas-profesores" class="section" style="display: none;">
+        <h2>Registro de Nuevo Profesor</h2>
+        <form id="form-profesor" class="formulario">
+            <div class="form-group">
+                <label for="codigo-profesor">Código:</label>
+                <input type="text" id="codigo-profesor" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre-profesor">Nombre:</label>
+                <input type="text" id="nombre-profesor" required>
+            </div>
+            <div class="form-group">
+                <label for="carrera-profesor">Carrera:</label>
+                <input type="text" id="carrera-profesor" required>
+            </div>
+            <div class="form-group">
+                <label for="email-profesor">Correo Electrónico:</label>
+                <input type="email" id="email-profesor" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha-profesor">Fecha de Contratación:</label>
+                <input type="date" id="fecha-profesor" required>
+            </div>
+            <div class="form-group">
+                <label for="antiguedad-profesor">Antigüedad (años):</label>
+                <input type="number" id="antiguedad-profesor" required>
+            </div>
+            <button type="submit" class="btn">Guardar</button>
+            <button type="button" class="btn-cancelar" onclick="mostrarSeccion('inicio')">Cancelar</button>
+        </form>
+    </section>
+
+    <!-- Sección de Consultas de Profesores (Punto 9) -->
+    <section id="consultas-profesores" class="section" style="display: none;">
+        <h2>Consulta de Profesores</h2>
+        <div class="tabla-container">
+            <table id="tabla-profesores">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Carrera</th>
+                        <th>Correo Electrónico</th>
+                        <th>Fecha Contratación</th>
+                        <th>Antigüedad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos se cargarán con JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <button class="btn-cancelar" onclick="mostrarSeccion('inicio')">Volver</button>
+    </section>
+
+    <!-- Sección de Altas de Libros (Punto 10) -->
+    <section id="altas-libros" class="section" style="display: none;">
+        <h2>Registro de Nuevo Libro</h2>
+        <form id="form-libro" class="formulario">
+            <div class="form-group">
+                <label for="isbn-libro">ISBN:</label>
+                <input type="text" id="isbn-libro" required>
+            </div>
+            <div class="form-group">
+                <label for="titulo-libro">Título:</label>
+                <input type="text" id="titulo-libro" required>
+            </div>
+            <div class="form-group">
+                <label for="autor-libro">Autor:</label>
+                <input type="text" id="autor-libro" required>
+            </div>
+            <div class="form-group">
+                <label for="editorial-libro">Editorial:</label>
+                <input type="text" id="editorial-libro" required>
+            </div>
+            <div class="form-group">
+                <label for="anio-libro">Año de Publicación:</label>
+                <input type="number" id="anio-libro" required>
+            </div>
+            <div class="form-group">
+                <label for="ejemplares-libro">Número de Ejemplares:</label>
+                <input type="number" id="ejemplares-libro" required>
+            </div>
+            <button type="submit" class="btn">Guardar</button>
+            <button type="button" class="btn-cancelar" onclick="mostrarSeccion('inicio')">Cancelar</button>
+        </form>
+    </section>
+
+    <!-- Sección de Consultas de Libros (Punto 11) -->
+    <section id="consultas-libros" class="section" style="display: none;">
+        <h2>Consulta de Libros</h2>
+        <div class="tabla-container">
+            <table id="tabla-libros">
+                <thead>
+                    <tr>
+                        <th>ISBN</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Editorial</th>
+                        <th>Año</th>
+                        <th>Ejemplares</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos se cargarán con JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <button class="btn-cancelar" onclick="mostrarSeccion('inicio')">Volver</button>
+    </section>
+
+    <script> 
+        // Datos almacenados en memoria (simulando base de datos)
+        let alumnos = [];
+        let profesores = [];
+        let libros = [];
+
+        // Mostrar usuario
+        document.addEventListener('DOMContentLoaded', function() {
+            const usuario = localStorage.getItem("usuario");
+            const bienvenido = document.getElementById("bienvenidoUsuario");
+            if (!usuario) {
+                window.location.href = "login.html";
+                return;
+            }
+            
+            bienvenido.textContent = usuario;
+    
+            // Cerrar sesión (Punto 12)
+            document.getElementById("cerrarSesion").addEventListener("click", function() {
+                localStorage.removeItem("usuario");
+                window.location.href = "login.html?logout=success";
+            });
+
+            // Configurar formularios
+            configurarFormularios();
+        });
+
+        // Función para mostrar secciones
+        function mostrarSeccion(id) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section, .hero').forEach(sec => {
+                sec.style.display = 'none';
+            });
+            // Mostrar la sección solicitada
+            document.getElementById(id).style.display = 'block';
+        }
+
+        // Configurar los formularios
+        function configurarFormularios() {
+            // Formulario de alumnos (Punto 6)
+            document.getElementById('form-alumno').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const alumno = {
+                    codigo: document.getElementById('codigo-alumno').value,
+                    nombre: document.getElementById('nombre-alumno').value,
+                    carrera: document.getElementById('carrera-alumno').value,
+                    email: document.getElementById('email-alumno').value
+                };
+                alumnos.push(alumno);
+                alert('Alumno registrado con éxito');
+                this.reset();
+                mostrarSeccion('inicio');
+            });
+
+            // Formulario de profesores (Punto 8)
+            document.getElementById('form-profesor').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const profesor = {
+                    codigo: document.getElementById('codigo-profesor').value,
+                    nombre: document.getElementById('nombre-profesor').value,
+                    carrera: document.getElementById('carrera-profesor').value,
+                    email: document.getElementById('email-profesor').value,
+                    fecha: document.getElementById('fecha-profesor').value,
+                    antiguedad: document.getElementById('antiguedad-profesor').value
+                };
+                profesores.push(profesor);
+                alert('Profesor registrado con éxito');
+                this.reset();
+                mostrarSeccion('inicio');
+            });
+
+            // Formulario de libros (Punto 10)
+            document.getElementById('form-libro').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const libro = {
+                    isbn: document.getElementById('isbn-libro').value,
+                    titulo: document.getElementById('titulo-libro').value,
+                    autor: document.getElementById('autor-libro').value,
+                    editorial: document.getElementById('editorial-libro').value,
+                    anio: document.getElementById('anio-libro').value,
+                    ejemplares: document.getElementById('ejemplares-libro').value
+                };
+                libros.push(libro);
+                alert('Libro registrado con éxito');
+                this.reset();
+                mostrarSeccion('inicio');
+            });
+
+            // Configurar tablas de consulta
+            document.querySelectorAll('[onclick*="consultas-"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setTimeout(cargarTablas, 50); // Pequeño delay para asegurar que la sección esté visible
+                });
+            });
+        }
+
+        // Cargar datos en las tablas
+        function cargarTablas() {
+            // Tabla de alumnos (Punto 7)
+            const tbodyAlumnos = document.querySelector('#tabla-alumnos tbody');
+            tbodyAlumnos.innerHTML = alumnos.map(alumno => `
+                <tr>
+                    <td>${alumno.codigo}</td>
+                    <td>${alumno.nombre}</td>
+                    <td>${alumno.carrera}</td>
+                    <td>${alumno.email}</td>
+                </tr>
+            `).join('');
+
+            // Tabla de profesores (Punto 9)
+            const tbodyProfesores = document.querySelector('#tabla-profesores tbody');
+            tbodyProfesores.innerHTML = profesores.map(profesor => `
+                <tr>
+                    <td>${profesor.codigo}</td>
+                    <td>${profesor.nombre}</td>
+                    <td>${profesor.carrera}</td>
+                    <td>${profesor.email}</td>
+                    <td>${profesor.fecha}</td>
+                    <td>${profesor.antiguedad}</td>
+                </tr>
+            `).join('');
+
+            // Tabla de libros (Punto 11)
+            const tbodyLibros = document.querySelector('#tabla-libros tbody');
+            tbodyLibros.innerHTML = libros.map(libro => `
+                <tr>
+                    <td>${libro.isbn}</td>
+                    <td>${libro.titulo}</td>
+                    <td>${libro.autor}</td>
+                    <td>${libro.editorial}</td>
+                    <td>${libro.anio}</td>
+                    <td>${libro.ejemplares}</td>
+                </tr>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

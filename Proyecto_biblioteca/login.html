@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="data:,">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylesLogin.css">
+    <title>Inicio de sesión</title>
+</head>
+
+<body>
+    <h1>Inicio de sesión</h1>
+    <div id="logout-message" class="alert-message" style="display: none;">
+        Sesión cerrada correctamente
+    </div>
+    <form id="inicio-sesion">
+        <div>
+            <label>Usuario:</label>
+            <input type="text" name="usuario" id="usuarioIn" placeholder="Ingrese el usuario" required>
+        </div>
+        
+        <div>
+            <label>Contraseña:</label>
+            <input type="password" name="contraseña" id="contraseñaIn" placeholder="Ingrese la contraseña" required>
+        </div>
+        
+        <div style="text-align: center; margin-top: 25px;">
+            <button type="button" onclick="iniciarSesion()" class="btn btn-primary">Aceptar</button>
+            <button type="button" onclick="cancelar()" class="btn">Cancelar</button>
+        </div>
+    </form>
+
+    <script>
+        let intentos = 1;
+
+        async function iniciarSesion() {
+            const usuario = document.getElementById("usuarioIn").value;
+            const contraseña = document.getElementById("contraseñaIn").value;
+
+            if (intentos < 4) {
+                try {
+                    if (usuario === "administrador" && contraseña === "12345") {
+                        alert("Inicio de sesión válido");
+                        localStorage.setItem("usuario", "Administrador");
+                        localStorage.setItem("rol", "administrador");
+                        window.location.href = "inicio.html";
+                        intentos = 1;
+                    } else if (usuario === "Blas" && contraseña === "98765") {
+                        alert("Inicio de sesión válido");
+                        localStorage.setItem("usuario", "Empleado");
+                        localStorage.setItem("rol", "empleado");
+                        window.location.href = "inicio.html";
+                        intentos = 1;
+                    } else {
+                        alert("Error en credenciales. Intento " + intentos + " de 3");
+                        intentos++;
+                    }
+                } catch (err) {
+                    alert(`Error: ${err.message}`);
+                    console.error("Detalle del error:", err);
+                }
+            } else {
+                alert("Demasiados intentos. Cuenta bloqueada temporalmente.");
+            }
+        }
+
+        function cancelar() {
+            document.getElementById("inicio-sesion").reset();
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const urlParams = new URLSearchParams(window.location.search);
+             if (urlParams.has('logout')) {
+
+                localStorage.removeItem("usuario");
+                alert("Has cerrado sesión correctamente");
+        
+                history.replaceState(null, '', window.location.pathname);
+            }
+
+        });
+    </script>
+</body>
+</html>

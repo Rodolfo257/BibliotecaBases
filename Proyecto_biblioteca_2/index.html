@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="stylesLogIn.css"> 
+	<title>Inicio de sesión</title>
+</head>
+<body>
+<h1> Inicio de sesión</h1>
+
+<form id="inisio-sesion">
+	<div>
+		<label> Usuario: </label>
+		<input type="text" name="usuario" id="usuarioIn" placeholder="Ingrese el usuario">
+	</div>
+	
+	<div>
+		<label> Contaseña: </label>
+		<input type="password" name="contraseña" id="contraseñaIn" placeholder="Ingrese la contraseña">
+	</div>
+	
+	<button type="button" onclick="iniciarSesion()" class="btn btn-primary" >Aceptar</button>
+	<button type="button" onclick="cancelar()" class="btn btn-primary" >Cancelar</button>
+</form>
+
+<script>
+// Mueve intentos fuera de la función para que mantenga su valor
+let intentos = 1;
+
+async function iniciarSesion() {
+    const usuario = document.getElementById("usuarioIn").value;
+    const contraseña = document.getElementById("contraseñaIn").value;
+
+    if (intentos < 4) {
+        try {
+            const response = await fetch('http://127.0.0.1:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ usuario, contraseña: contraseña // Asegura que el nombre coincida con el backend
+                }),
+            });
+
+            // Verifica primero el estado de la respuesta
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert("Inicio de sesión válido");
+                // Guarda el nombre del usuario en localStorage
+                localStorage.setItem("usuario", data.user.usuario); // usa la columna que quieras
+                window.location.href = "inicio.html";
+                intentos = 1; // Reinicia intentos
+            } else {
+                alert("Error en credenciales. Intento " + intentos + " de 3");
+                intentos++;
+            }
+        } catch (err) {
+            alert(`Error de conexión: ${err.message}`);
+            console.error("Detalle del error:", err);
+        }
+    } else {
+        alert("Demasiados intentos. Cuenta bloqueada temporalmente.");
+    }
+}
+
+function cancelar() {
+    document.getElementById("inisio-sesion").reset();
+}
+</script>
+</body>
+</html>
